@@ -58,20 +58,29 @@ function App() {
   }, [score]);
 
   const handleEnter = async() => {
-    try{
-          const res = await axios.post("https://quiz-web-application-j8mw.onrender.com/quiz/check", { username });
-    console.log(res);
-    if(res.status === 200){
-      alert("You have already done this Quiz game");
-      setScore(res.data.data)
-      return;
-    }else{
- setStarted(true);
-    }
+try {
+  const res = await fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz/check", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username })
+  });
 
-    }catch(err){
-      console.log(err);
-    }
+  const data = await res.json();
+  console.log(data);
+
+  if (res.status === 200) {
+    alert("You have already done this Quiz game");
+    setScore(data.data);
+    return;
+  } else {
+    setStarted(true);
+  }
+} catch (error) {
+  console.error("Error during fetch:", error);
+}
+
 
    
 
