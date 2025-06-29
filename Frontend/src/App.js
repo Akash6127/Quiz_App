@@ -18,7 +18,7 @@ function App() {
   const [friendshipLevel, setFriendshipLevel] = useState("very Good");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/quiz")
+    fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz")
       .then(res => res.json())
       .then(data => setQuestions(data));
   }, []);
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     if (score !== null) {
-      fetch("http://localhost:5000/api/leaderboard")
+      fetch("https://quiz-web-application-j8mw.onrender.com/api/leaderboard")
         .then(res => res.json())
         .then(data => {
           setLeaderboard(data);
@@ -59,7 +59,7 @@ function App() {
 
   const handleEnter = async() => {
     try{
-          const res = await axios.post("http://localhost:5000/api/quiz/check", { username });
+          const res = await axios.post("https://quiz-web-application-j8mw.onrender.com/quiz/check", { username });
     console.log(res);
     if(res.status === 200){
       alert("You have already done this Quiz game");
@@ -106,7 +106,7 @@ function App() {
   };
 
   const handleSubmit = () => {
-    fetch("http://localhost:5000/api/quiz/submit", {
+    fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answers, username })
