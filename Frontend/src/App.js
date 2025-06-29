@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Footer1 from "./Footer1.js";
 import Footer from "./Footer.js";
-import axios from "axios";
 
 function App() {
   const [questions, setQuestions] = useState([]);
@@ -18,7 +17,7 @@ function App() {
   const [friendshipLevel, setFriendshipLevel] = useState("very Good");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/quiz")
+    fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz")
       .then(res => res.json())
       .then(data => setQuestions(data));
   }, []);
@@ -26,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (score !== null) {
-      fetch("http://localhost:5000/api/leaderboard")
+      fetch("https://quiz-web-application-j8mw.onrender.com/api/leaderboard")
         .then(res => res.json())
         .then(data => {
           setLeaderboard(data);
@@ -58,20 +57,29 @@ function App() {
   }, [score]);
 
   const handleEnter = async() => {
-    try{
-          const res = await axios.post("http://localhost:5000/api/quiz/check", { username });
-    console.log(res);
-    if(res.status === 200){
-      alert("You have already done this Quiz game");
-      setScore(res.data.data)
-      return;
-    }else{
- setStarted(true);
-    }
+try {
+  const res = await fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz/check", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username })
+  });
 
-    }catch(err){
-      console.log(err);
-    }
+  const data = await res.json();
+  console.log(data);
+
+  if (res.status === 200) {
+    alert("You have already done this Quiz game");
+    setScore(data.data);
+    return;
+  } else {
+    setStarted(true);
+  }
+} catch (error) {
+  console.error("Error during fetch:", error);
+}
+
 
    
 
@@ -106,7 +114,7 @@ function App() {
   };
 
   const handleSubmit = () => {
-    fetch("http://localhost:5000/api/quiz/submit", {
+    fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answers, username })
