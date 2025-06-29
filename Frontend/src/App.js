@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Footer1 from "./Footer1.js";
 import Footer from "./Footer.js";
-import axios from "axios";
 
 function App() {
   const [questions, setQuestions] = useState([]);
