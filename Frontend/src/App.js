@@ -17,7 +17,7 @@ function App() {
   const [friendshipLevel, setFriendshipLevel] = useState("very Good");
 
   useEffect(() => {
-    fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz")
+    fetch("https://quiz-app-9xom.onrender.com/api/quiz")
       .then(res => res.json())
       .then(data => setQuestions(data));
   }, []);
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (score !== null) {
-      fetch("https://quiz-web-application-j8mw.onrender.com/api/leaderboard")
+      fetch("https://quiz-app-9xom.onrender.com/api/leaderboard")
         .then(res => res.json())
         .then(data => {
           setLeaderboard(data);
@@ -58,7 +58,7 @@ function App() {
 
   const handleEnter = async() => {
 try {
-  const res = await fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz/check", {
+  const res = await fetch("https://quiz-app-9xom.onrender.com/api/quiz/check", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -114,7 +114,7 @@ try {
   };
 
   const handleSubmit = () => {
-    fetch("https://quiz-web-application-j8mw.onrender.com/api/quiz/submit", {
+    fetch("https://quiz-app-9xom.onrender.com/api/quiz/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ answers, username })
